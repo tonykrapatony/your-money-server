@@ -3,8 +3,8 @@ import Income from "../Models/Income.js";
 class IncomeController {
   async create (req, res) {
     try {
-      const { title, value, userId } = req.body;
-      const income = await Income.create({ title, value, userId });
+      const { date, title, value, userId } = req.body;
+      const income = await Income.create({ date, title, value, userId });
       res.json(income);
     } catch (error) {
       res.status(500).json(error);
@@ -52,7 +52,7 @@ class IncomeController {
       const updatedIncome = await Income.findByIdAndUpdate(id, data, {new: true});
       return res.json(updatedIncome);
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error, message: "ERROR"});
     }
   }
   async deleteIncome (req, res) {

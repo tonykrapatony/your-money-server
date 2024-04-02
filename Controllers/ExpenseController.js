@@ -3,8 +3,8 @@ import Expense from "../Models/Expense.js";
 class ExpenseController {
   async create (req, res) {
     try {
-      const { title, value, category, userId } = req.body;
-      const expense = await Expense.create({ title, value, category, userId });
+      const { date, title, value, category, userId } = req.body;
+      const expense = await Expense.create({ date, title, value, category, userId });
       res.json(expense);
     } catch (error) {
       res.status(500).json(error);

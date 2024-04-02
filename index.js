@@ -12,9 +12,12 @@ const MONGODB = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB
 const app = express();
 
 app.use(express.json());
-app.use(cors());
-app.use('/api/v1/', router);
 
+
+app.use(cors());
+app.options('*', cors())
+
+app.use('/api/v1/', router);
 
 async function start() {
   try {
