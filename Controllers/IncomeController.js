@@ -52,7 +52,7 @@ class IncomeController {
       const updatedIncome = await Income.findByIdAndUpdate(id, data, {new: true});
       return res.json(updatedIncome);
     } catch (error) {
-      res.status(500).json({error, message: "ERROR"});
+      res.status(500).json(error);
     }
   }
   async deleteIncome (req, res) {
