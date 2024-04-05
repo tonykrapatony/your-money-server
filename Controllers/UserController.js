@@ -1,5 +1,5 @@
 import User from "../Models/User.js";
-import { passwordEncryption } from "../helpers/helpers.js";
+import { fileUpload, passwordEncryption } from "../helpers/helpers.js";
 
 class UserController {
   async create (req, res) {
@@ -39,10 +39,14 @@ class UserController {
       if (!id) {
         res.status(400).json({message: 'Wrong ID'});
       }
+      if (data.photo) {
+        let photoUrl = await fileUpload(data.photo);
+        data.photo = photoUrl;
+      }
       const updatedUser = await User.findByIdAndUpdate(id, data, {new: true});
-      return res.json(updatedUser);
+      return res.json({updatedUser, message: "User data has been successfully updated"});
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error, message: "Failed to update user data"});
     }
   }
   async deleteUser (req, res) {
@@ -52,9 +56,9 @@ class UserController {
         res.status(400).json({message: 'Wrong ID'});
       }
       const deletedUser = await User.findByIdAndDelete(id);
-      return res.json(deletedUser);
+      return res.json({deletedUser, message: "User successfully deleted"});
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error, message: "Failed to delete user"});
     }
   }
 }

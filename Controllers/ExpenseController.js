@@ -5,9 +5,9 @@ class ExpenseController {
     try {
       const { date, title, value, category, userId } = req.body;
       const expense = await Expense.create({ date, title, value, category, userId });
-      res.json(expense);
+      res.json({expense, message: "Expense added successfully"});
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error, message: "Error when adding an expense"});
     }
   }
   async getExpenses (req, res) {
@@ -62,9 +62,9 @@ class ExpenseController {
         res.status(400).json({message: 'Wrong ID'});
       }
       const deletedExpense = await Expense.findByIdAndDelete(id);
-      return res.json(deletedExpense);
+      return res.json({deletedExpense, message: "Expense successfully deleted"});
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error, message: "Failed to delete expense"});
     }
   }
 }

@@ -5,9 +5,9 @@ class IncomeController {
     try {
       const { date, title, value, userId } = req.body;
       const income = await Income.create({ date, title, value, userId });
-      res.json(income);
+      res.json({income, message: "Income added successfully"});
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error, message: "Error when adding an income"});
     }
   }
   async getIncomes (req, res) {
@@ -62,9 +62,9 @@ class IncomeController {
         res.status(400).json({message: 'Wrong ID'});
       }
       const deletedIncome = await Income.findByIdAndDelete(id);
-      return res.json(deletedIncome);
+      return res.json({deletedIncome, message: "Income successfully deleted"});
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error, message: "Failed to delete income"});
     }
   }
 }
