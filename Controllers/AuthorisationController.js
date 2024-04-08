@@ -24,8 +24,8 @@ class UserController {
       if (!user) {
         return res.status(400).json({message: "The user with this email was not found"})
       }
-      const chechPass = await passwordCompare(password, user.password);
-      if (!chechPass) {
+      const checkPass = await passwordCompare(password, user.password);
+      if (!checkPass) {
         return res.status(400).json({message: "Password is incorrect"})
       }
       const token = await jwtTokenGenerator(user._id, user.email);

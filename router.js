@@ -12,6 +12,7 @@ router.post('/login', AuthorisationController.login);
 router.get('/users', UserController.getUsers);
 router.get('/users/:id', UserController.getUser);
 router.put('/users/:id', UserController.updateUser);
+router.patch('/users/:id/password', UserController.changeUserPassword);
 router.delete('/users/:id', UserController.deleteUser);
 
 
